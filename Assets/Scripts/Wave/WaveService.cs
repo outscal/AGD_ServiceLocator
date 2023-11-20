@@ -10,7 +10,7 @@ using ServiceLocator.Player;
 
 namespace ServiceLocator.Wave
 {
-    public class WaveService : MonoBehaviour
+    public class WaveService : GenericMonoSingleton<WaveService>
     {
         [SerializeField] private EventService eventService;
 
@@ -20,24 +20,6 @@ namespace ServiceLocator.Wave
         private int currentWaveId;
         private List<WaveData> waveDatas;
         private List<BloonController> activeBloons;
-
-        public static WaveService Instance { get { return instance; } }
-        private static WaveService instance;
-
-        public int Money { get; private set; }
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this.gameObject);
-                Debug.LogError("Someone is Trying to create another instance of WaveService");
-            }
-        }
 
         private void Start()
         {
@@ -93,7 +75,7 @@ namespace ServiceLocator.Wave
             activeBloons.Remove(bloon);
             if (HasCurrentWaveEnded())
             {
-                soundService.PlaySoundEffects(Sound.SoundType.WaveComplete);
+                SoundService.Instance.PlaySoundEffects(Sound.SoundType.WaveComplete);
                 UIService.Instance.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
 
                 if(IsLevelWon())
