@@ -9,7 +9,7 @@ using ServiceLocator.Wave;
 
 namespace ServiceLocator.UI
 {
-    public class UIService : GenericMonoSingleton<UIService>
+    public class UIService : MonoBehaviour
     {
         [Header("Gameplay Panel")]
         [SerializeField] private GameObject gameplayPanel;
@@ -67,7 +67,7 @@ namespace ServiceLocator.UI
 
         private void OnNextWaveButton()
         {
-            WaveService.Instance.StarNextWave();
+            GameService.Instance.waveService.StarNextWave();
             SetNextWaveButton(false);
         }
 
