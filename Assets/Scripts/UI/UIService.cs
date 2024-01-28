@@ -38,6 +38,16 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
+        public static UIService instance = null;
+
+        private void Awake()
+        {
+            if(instance==null)
+                instance = this;
+            else if(instance!=this)
+                Destroy(gameObject);
+        }
+
 
         private void Start()
         {
@@ -52,7 +62,7 @@ namespace ServiceLocator.UI
             nextWaveButton.onClick.AddListener(OnNextWaveButton);
             quitButton.onClick.AddListener(OnQuitButtonClicked);
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
-            
+
             SubscribeToEvents();
         }
 
