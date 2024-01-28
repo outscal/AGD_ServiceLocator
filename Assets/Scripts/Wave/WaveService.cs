@@ -22,6 +22,15 @@ namespace ServiceLocator.Wave
         private int currentWaveId;
         private List<WaveData> waveDatas;
         private List<BloonController> activeBloons;
+        public static WaveService instance = null;
+
+        private void Awake()
+        {
+            if(instance==null)
+                instance = this;
+            else if(instance!=this)
+                Destroy(gameObject);
+        }
 
         private void Start()
         {
@@ -54,7 +63,7 @@ namespace ServiceLocator.Wave
 
         public async void SpawnBloons(List<BloonType> bloonsToSpawn, Vector3 spawnPosition, int startingWaypointIndex, float spawnRate)
         {
-            foreach(BloonType bloonType in bloonsToSpawn)
+            foreach (BloonType bloonType in bloonsToSpawn)
             {
                 BloonController bloon = bloonPool.GetBloon(bloonType);
                 bloon.SetPosition(spawnPosition);
@@ -80,7 +89,7 @@ namespace ServiceLocator.Wave
                 soundService.PlaySoundEffects(Sound.SoundType.WaveComplete);
                 uiService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
 
-                if(IsLevelWon())
+                if (IsLevelWon())
                     uiService.UpdateGameEndUI(true);
                 else
                     uiService.SetNextWaveButton(true);
