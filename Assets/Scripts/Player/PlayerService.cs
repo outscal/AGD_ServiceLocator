@@ -9,8 +9,6 @@ namespace ServiceLocator.Player
 {
     public class PlayerService : MonoBehaviour
     {
-        [SerializeField] private SoundService soundService;
-
         [SerializeField] public PlayerScriptableObject playerScriptableObject;
 
         private ProjectilePool projectilePool;
@@ -99,7 +97,7 @@ namespace ServiceLocator.Player
             if (MapService.instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                soundService.PlaySoundEffects(SoundType.SpawnMonkey);
+                SoundService.instance.PlaySoundEffects(SoundType.SpawnMonkey);
             }
         }
 

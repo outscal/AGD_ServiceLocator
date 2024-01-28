@@ -7,8 +7,6 @@ namespace ServiceLocator.Wave.Bloon
 {
     public class BloonController
     {
-        private SoundService soundService;
-
         private BloonView bloonView;
         private BloonScriptableObject bloonScriptableObject;
 
@@ -20,9 +18,8 @@ namespace ServiceLocator.Wave.Bloon
 
         public Vector3 Position => bloonView.transform.position;
 
-        public BloonController(SoundService soundService, BloonView bloonPrefab, Transform bloonContainer)
+        public BloonController(BloonView bloonPrefab, Transform bloonContainer)
         {
-            this.soundService = soundService;
             bloonView = Object.Instantiate(bloonPrefab, bloonContainer);
             bloonView.Controller = this;
         }
@@ -63,7 +60,7 @@ namespace ServiceLocator.Wave.Bloon
             if (currentHealth <= 0 && currentState == BloonState.ACTIVE)
             {
                 PopBloon();
-                soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
+                SoundService.instance.PlaySoundEffects(Sound.SoundType.BloonPop);
             }
         }
 
