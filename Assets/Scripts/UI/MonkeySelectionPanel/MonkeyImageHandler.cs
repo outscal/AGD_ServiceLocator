@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 namespace ServiceLocator.UI
 {
-    public class MonkeyImageHandler : MonoBehaviour
+    public class MonkeyImageHandler : MonoBehaviour,IDragHandler,IEndDragHandler
     {
         private Image monkeyImage;
         private MonkeyCellController owner;
         private Sprite spriteToSet;
+        private RectTransform imageRect;
 
         public void ConfigureImageHandler(Sprite spriteToSet, MonkeyCellController owner)
         {
@@ -18,10 +19,23 @@ namespace ServiceLocator.UI
             this.owner = owner;
         }
 
+
         private void Awake()
         {
             monkeyImage = GetComponent<Image>();
             monkeyImage.sprite = spriteToSet;
+            imageRect = GetComponent<RectTransform>();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            imageRect.anchoredPosition += eventData.delta;
+            owner.MonkeyDraggedAt(imageRect.position);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            ResetMonkey();
         }
     }
 }
