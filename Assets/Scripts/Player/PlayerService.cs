@@ -9,7 +9,6 @@ namespace ServiceLocator.Player
 {
     public class PlayerService : MonoBehaviour
     {
-        [SerializeField] private UIService uiService;
         [SerializeField] private SoundService soundService;
 
         [SerializeField] public PlayerScriptableObject playerScriptableObject;
@@ -40,8 +39,8 @@ namespace ServiceLocator.Player
         {
             health = playerScriptableObject.Health;
             Money = playerScriptableObject.Money;
-            uiService.UpdateHealthUI(health);
-            uiService.UpdateMoneyUI(Money);
+            UIService.instance.UpdateHealthUI(health);
+            UIService.instance.UpdateMoneyUI(Money);
             activeMonkeys = new List<MonkeyController>();
         }
 
@@ -123,7 +122,7 @@ namespace ServiceLocator.Player
             int reducedHealth = health - damageToTake;
             health = reducedHealth <= 0 ? 0 : health - damageToTake;
 
-            uiService.UpdateHealthUI(health);
+            UIService.instance.UpdateHealthUI(health);
             if (health <= 0)
                 PlayerDeath();
         }
@@ -131,15 +130,15 @@ namespace ServiceLocator.Player
         private void DeductMoney(int moneyToDedecut)
         {
             Money -= moneyToDedecut;
-            uiService.UpdateMoneyUI(Money);
+            UIService.instance.UpdateMoneyUI(Money);
         }
 
         public void GetReward(int reward)
         {
             Money += reward;
-            uiService.UpdateMoneyUI(Money);
+            UIService.instance.UpdateMoneyUI(Money);
         }
 
-        private void PlayerDeath() => uiService.UpdateGameEndUI(false);
+        private void PlayerDeath() => UIService.instance.UpdateGameEndUI(false);
     }
 }
