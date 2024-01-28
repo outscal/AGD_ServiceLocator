@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace ServiceLocator.UI
 {
-    public class MonkeyImageHandler : MonoBehaviour,IDragHandler,IEndDragHandler
+    public class MonkeyImageHandler : MonoBehaviour,IDragHandler,IEndDragHandler,IPointerDownHandler
     {
         private Image monkeyImage;
         private MonkeyCellController owner;
