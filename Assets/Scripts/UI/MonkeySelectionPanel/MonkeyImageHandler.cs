@@ -12,6 +12,8 @@ namespace ServiceLocator.UI
         private MonkeyCellController owner;
         private Sprite spriteToSet;
         private RectTransform imageRect;
+        private Vector3 originalPosition;
+        private Vector3 originalAnchoredPosition;
 
         public void ConfigureImageHandler(Sprite spriteToSet, MonkeyCellController owner)
         {
@@ -25,6 +27,8 @@ namespace ServiceLocator.UI
             monkeyImage = GetComponent<Image>();
             monkeyImage.sprite = spriteToSet;
             imageRect = GetComponent<RectTransform>();
+            originalPosition = imageRect.position;
+            originalAnchoredPosition = imageRect.anchoredPosition;
         }
 
         public void OnDrag(PointerEventData eventData)
