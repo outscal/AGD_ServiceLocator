@@ -84,7 +84,7 @@ namespace ServiceLocator.Wave
             activeBloons.Remove(bloon);
             if (HasCurrentWaveEnded())
             {
-                SoundService.instance.PlaySoundEffects(Sound.SoundType.WaveComplete);
+                SoundService.Instance.PlaySoundEffects(Sound.SoundType.WaveComplete);
                 UIService.instance.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
 
                 if (IsLevelWon())
