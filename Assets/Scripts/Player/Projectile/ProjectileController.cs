@@ -5,16 +5,14 @@ namespace ServiceLocator.Player.Projectile
 {
     public class ProjectileController
     {
-        private PlayerService playerService;
         private ProjectileView projectileView;
         private ProjectileScriptableObject projectileScriptableObject;
 
         private BloonController target;
         private ProjectileState currentState;
 
-        public ProjectileController(PlayerService playerService, ProjectileView projectilePrefab, Transform projectileContainer)
+        public ProjectileController(ProjectileView projectilePrefab, Transform projectileContainer)
         {
-            this.playerService = playerService;
             projectileView = Object.Instantiate(projectilePrefab, projectileContainer);
             projectileView.SetController(this);
         }
@@ -45,7 +43,7 @@ namespace ServiceLocator.Player.Projectile
 
         public void UpdateProjectileMotion()
         {
-            if(target != null && currentState == ProjectileState.ACTIVE)
+            if (target != null && currentState == ProjectileState.ACTIVE)
                 projectileView.transform.Translate(Vector2.left * projectileScriptableObject.Speed * Time.deltaTime, Space.Self);
         }
 
@@ -63,7 +61,7 @@ namespace ServiceLocator.Player.Projectile
         {
             target = null;
             projectileView.gameObject.SetActive(false);
-            playerService.ReturnProjectileToPool(this);
+            PlayerService.Instance.ReturnProjectileToPool(this);
         }
 
         private void SetState(ProjectileState newState) => currentState = newState;
