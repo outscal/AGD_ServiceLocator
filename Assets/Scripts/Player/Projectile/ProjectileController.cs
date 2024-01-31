@@ -43,7 +43,7 @@ namespace ServiceLocator.Player.Projectile
 
         public void UpdateProjectileMotion()
         {
-            if(target != null && currentState == ProjectileState.ACTIVE)
+            if (target != null && currentState == ProjectileState.ACTIVE)
                 projectileView.transform.Translate(Vector2.left * projectileScriptableObject.Speed * Time.deltaTime, Space.Self);
         }
 
@@ -61,7 +61,7 @@ namespace ServiceLocator.Player.Projectile
         {
             target = null;
             projectileView.gameObject.SetActive(false);
-            PlayerService.instance.ReturnProjectileToPool(this);
+            PlayerService.Instance.ReturnProjectileToPool(this);
         }
 
         private void SetState(ProjectileState newState) => currentState = newState;

@@ -66,7 +66,7 @@ namespace ServiceLocator.Wave.Bloon
 
         public void FollowWayPoints()
         {
-            if(HasReachedFinalWaypoint())
+            if (HasReachedFinalWaypoint())
             {
                 ResetBloon();
             }
@@ -86,7 +86,7 @@ namespace ServiceLocator.Wave.Bloon
         private void ResetBloon()
         {
             WaveService.instance.RemoveBloon(this);
-            PlayerService.instance.TakeDamage(bloonScriptableObject.Damage);
+            PlayerService.Instance.TakeDamage(bloonScriptableObject.Damage);
             bloonView.gameObject.SetActive(false);
         }
 
@@ -105,7 +105,7 @@ namespace ServiceLocator.Wave.Bloon
             if (HasLayeredBloons())
                 SpawnLayeredBloons();
 
-            PlayerService.instance.GetReward(bloonScriptableObject.Reward);
+            PlayerService.Instance.GetReward(bloonScriptableObject.Reward);
             WaveService.instance.RemoveBloon(this);
         }
 
