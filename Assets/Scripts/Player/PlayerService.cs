@@ -77,7 +77,7 @@ namespace ServiceLocator.Player
             if (monkeyCost > Money)
                 return;
 
-            MapService.instance.ValidateSpawnPosition(dropPosition);
+            MapService.Instance.ValidateSpawnPosition(dropPosition);
         }
 
         public void TrySpawningMonkey(MonkeyType monkeyType, int monkeyCost, Vector3 dropPosition)
@@ -85,7 +85,7 @@ namespace ServiceLocator.Player
             if (monkeyCost > Money)
                 return;
 
-            if (MapService.instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
+            if (MapService.Instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
                 SoundService.instance.PlaySoundEffects(SoundType.SpawnMonkey);

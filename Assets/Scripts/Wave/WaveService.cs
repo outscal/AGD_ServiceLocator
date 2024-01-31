@@ -24,9 +24,9 @@ namespace ServiceLocator.Wave
 
         private void Awake()
         {
-            if(instance==null)
+            if (instance == null)
                 instance = this;
-            else if(instance!=this)
+            else if (instance != this)
                 Destroy(gameObject);
         }
 
@@ -55,7 +55,7 @@ namespace ServiceLocator.Wave
         {
             currentWaveId++;
             var bloonsToSpawn = GetBloonsForCurrentWave();
-            var spawnPosition = MapService.instance.GetBloonSpawnPositionForCurrentMap();
+            var spawnPosition = MapService.Instance.GetBloonSpawnPositionForCurrentMap();
             SpawnBloons(bloonsToSpawn, spawnPosition, 0, waveScriptableObject.SpawnRate);
         }
 
@@ -65,7 +65,7 @@ namespace ServiceLocator.Wave
             {
                 BloonController bloon = bloonPool.GetBloon(bloonType);
                 bloon.SetPosition(spawnPosition);
-                bloon.SetWayPoints(MapService.instance.GetWayPointsForCurrentMap(), startingWaypointIndex);
+                bloon.SetWayPoints(MapService.Instance.GetWayPointsForCurrentMap(), startingWaypointIndex);
 
                 AddBloon(bloon);
                 await Task.Delay(Mathf.RoundToInt(spawnRate * 1000));
