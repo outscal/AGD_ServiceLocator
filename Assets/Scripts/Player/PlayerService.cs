@@ -8,7 +8,7 @@ using ServiceLocator.Sound;
 
 namespace ServiceLocator.Player
 {
-    public class PlayerService : GenericMonoSingleton<PlayerService>
+    public class PlayerService
     {
         private PlayerScriptableObject playerScriptableObject;
         private ProjectilePool projectilePool;
@@ -34,7 +34,7 @@ namespace ServiceLocator.Player
             activeMonkeys = new List<MonkeyController>();
         }
 
-        public void Update()
+        public void PlayerServiceUpdate()
         {
             if (Input.GetMouseButtonDown(0))
             {
