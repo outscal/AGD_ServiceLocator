@@ -12,6 +12,7 @@ namespace ServiceLocator.Sound
 
         public SoundService(SoundScriptableObject soundScriptableObject,AudioSource audioEffects,AudioSource backgroundMusic)
         {
+            this.soundScriptableObject = soundScriptableObject;
             this.audioEffects = audioEffects;
             this.backgroundMusic = backgroundMusic;
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
