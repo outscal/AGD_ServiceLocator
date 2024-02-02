@@ -23,7 +23,7 @@ namespace ServiceLocator.Map
             ResetTileOverlay();
         }
 
-        private void SubscribeToEvents() => EventService.Instance.OnMapSelected.AddListener(LoadMap);
+        private void SubscribeToEvents() => GameService.Instance.eventService.OnMapSelected.AddListener(LoadMap);
 
         private void LoadMap(int mapId)
         {
