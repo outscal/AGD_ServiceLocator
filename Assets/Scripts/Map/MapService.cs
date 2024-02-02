@@ -28,7 +28,7 @@ namespace ServiceLocator.Map
         private void LoadMap(int mapId)
         {
             currentMapData = mapScriptableObject.MapDatas.Find(mapData => mapData.MapID == mapId);
-            currentGrid = Instantiate(currentMapData.MapPrefab);
+            currentGrid = Object.Instantiate(currentMapData.MapPrefab);
             currentTileMap = currentGrid.GetComponentInChildren<Tilemap>();
         }
 
