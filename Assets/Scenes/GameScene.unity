@@ -167,6 +167,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &341456498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+  m_PrefabInstance: {fileID: 7182248004000416899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583d4a8aa295a574b9c754281cc7873e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50492d16063dc446be2543e35b22137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIService: {fileID: 341456498}
   playerScriptableObject: {fileID: 11400000, guid: ba423c4fbfbefa248b49a627b9e607b6, type: 2}
   soundScriptableObject: {fileID: 11400000, guid: 1fe1d13385d932c4987f15e4b7d1cc49, type: 2}
   audioEffect: {fileID: 1495988717}
