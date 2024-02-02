@@ -4,6 +4,7 @@ using ServiceLocator.Player;
 using ServiceLocator.Sound;
 using ServiceLocator.UI;
 using ServiceLocator.Utilities;
+using ServiceLocator.Wave;
 using UnityEngine;
 
 public class GameService : GenericMonoSingleton<GameService>
@@ -15,6 +16,7 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private PlayerScriptableObject playerScriptableObject;
     [SerializeField] private SoundScriptableObject soundScriptableObject;
     [SerializeField] private MapScriptableObject mapScriptableObject;
+    [SerializeField] private WaveScriptableObject waveScriptableObject;
 
     [Header("Sound Service")]
     [SerializeField] private AudioSource audioEffect;
@@ -25,8 +27,9 @@ public class GameService : GenericMonoSingleton<GameService>
     public UIService UIService => uIService;
     public EventService eventService { get; private set; }
     public MapService mapService { get; private set; }
+    public WaveService waveService { get; private set; }
 
-    void Awake()
+    override protected void Awake()
     {
         base.Awake();
         eventService = new EventService();
@@ -37,6 +40,7 @@ public class GameService : GenericMonoSingleton<GameService>
         playerService = new PlayerService(playerScriptableObject);
         soundService = new SoundService(soundScriptableObject, audioEffect, backgroundMusic);
         mapService = new MapService(mapScriptableObject);
+        waveService = new WaveService(waveScriptableObject);
     }
 
     void Update()
