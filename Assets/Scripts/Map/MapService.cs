@@ -7,17 +7,17 @@ using ServiceLocator.Events;
 
 namespace ServiceLocator.Map
 {
-    public class MapService : GenericMonoSingleton<MapService>
+    public class MapService
     {
-        [SerializeField] private MapScriptableObject mapScriptableObject;
-
+        private MapScriptableObject mapScriptableObject;
         private Grid currentGrid;
         private Tilemap currentTileMap;
         private MapData currentMapData;
         private SpriteRenderer tileOverlay;
 
-        private void Start()
+        public MapService(MapScriptableObject mapScriptableObject)
         {
+            this.mapScriptableObject = mapScriptableObject;
             SubscribeToEvents();
             tileOverlay = Object.Instantiate(mapScriptableObject.TileOverlay).GetComponent<SpriteRenderer>();
             ResetTileOverlay();
