@@ -35,6 +35,7 @@ namespace ServiceLocator.Main
         private void Start()
         {
             CreateSingletons();
+            InjectDependecy();
         }
 
         private void Update()
@@ -50,6 +51,11 @@ namespace ServiceLocator.Main
             WaveService = new WaveService(waveScriptableObject);
             SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
             PlayerService = new PlayerService(playerScriptableObject);
+        }
+
+        private void InjectDependecy()
+        {
+            PlayerService.Init(UIService, SoundService, MapService);
         }
     }
 }
