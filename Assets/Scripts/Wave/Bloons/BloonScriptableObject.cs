@@ -7,11 +7,14 @@ namespace ServiceLocator.Wave.Bloon
     public class BloonScriptableObject : ScriptableObject
     {
         public BloonType Type;
-        public int Health;
+        public int Health; // max health at the start
+        public int HealthRegenerationValue; // value of health regeneration
+        public float HealthRegenerationAfter; // will start regeneration of health if not hit for the provided seconds
         public int Damage;
         public int Reward;
         public float Speed;
-        public Sprite Sprite;
+        public Sprite FullHealthSprite;
+        public Sprite LowHealthSprite;
         public List<BloonType> LayeredBloons;
         public float LayerBloonSpawnRate;
     }

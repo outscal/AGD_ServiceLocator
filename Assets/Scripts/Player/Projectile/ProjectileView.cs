@@ -16,6 +16,7 @@ namespace ServiceLocator.Player.Projectile
         {
             if (ProjectileOutOfBounds())
                 controller.ResetProjectile();
+            
             controller?.UpdateProjectileMotion();
         }
 

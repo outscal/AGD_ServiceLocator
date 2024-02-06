@@ -17,6 +17,7 @@ MonoBehaviour:
   Damage: 1
   Reward: 10
   Speed: 3
-  Sprite: {fileID: 21300000, guid: ae1e98a057db6a94ca5429339a0216d8, type: 3}
+  FullHealthSprite: {fileID: 21300000, guid: ae1e98a057db6a94ca5429339a0216d8, type: 3}
+  LowHealthSprite: {fileID: 0}
   LayeredBloons: 
   LayerBloonSpawnRate: 0.2
