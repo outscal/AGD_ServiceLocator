@@ -46,7 +46,6 @@ namespace ServiceLocator.Main
         private void CreateSingletons()
         {
             EventService = new EventService();
-            UIService.SubscribeToEvents();
             MapService = new MapService(mapScriptableObject);
             WaveService = new WaveService(waveScriptableObject);
             SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
@@ -58,6 +57,7 @@ namespace ServiceLocator.Main
             PlayerService.Init(UIService, SoundService, MapService);
             MapService.Init(EventService);
             SoundService.Init();
+            UIService.Init();
         }
     }
 }
