@@ -12,11 +12,11 @@ namespace ServiceLocator.Main
     public class GameService : GenericMonoSingleton<GameService>
     {
         // Services:
-        public EventService EventService { get; private set; }
-        public MapService MapService { get; private set; }
-        public WaveService WaveService { get; private set; }
-        public SoundService SoundService { get; private set; }
-        public PlayerService PlayerService { get; private set; }
+        private EventService eventService;
+        private MapService mapService;
+        private WaveService waveService;
+        private SoundService soundService;
+        private PlayerService playerService;
 
         [SerializeField] private UIService uiService;
         public UIService UIService => uiService;
@@ -40,25 +40,25 @@ namespace ServiceLocator.Main
 
         private void Update()
         {
-            PlayerService.Update();
+            playerService.Update();
         }
 
         private void CreateSingletons()
         {
-            EventService = new EventService();
-            MapService = new MapService(mapScriptableObject);
-            WaveService = new WaveService(waveScriptableObject);
-            SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
-            PlayerService = new PlayerService(playerScriptableObject);
+            eventService = new EventService();
+            mapService = new MapService(mapScriptableObject);
+            waveService = new WaveService(waveScriptableObject);
+            soundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
+            playerService = new PlayerService(playerScriptableObject);
         }
 
         private void InjectDependecy()
         {
-            PlayerService.Init(UIService, SoundService, MapService);
-            MapService.Init(EventService);
-            SoundService.Init();
-            UIService.Init(EventService, WaveService,PlayerService);
-            WaveService.Init(EventService, UIService, MapService, SoundService,PlayerService);
+            playerService.Init(UIService, soundService, mapService);
+            mapService.Init(eventService);
+            soundService.Init();
+            UIService.Init(eventService, waveService,playerService);
+            waveService.Init(eventService, UIService, mapService, soundService,playerService);
         }
     }
 }
