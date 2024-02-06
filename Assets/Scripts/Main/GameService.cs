@@ -57,7 +57,7 @@ namespace ServiceLocator.Main
             PlayerService.Init(UIService, SoundService, MapService);
             MapService.Init(EventService);
             SoundService.Init();
-            UIService.Init(EventService, WaveService);
+            UIService.Init(EventService, WaveService,PlayerService);
             WaveService.Init(EventService, UIService, MapService, SoundService,PlayerService);
         }
     }
