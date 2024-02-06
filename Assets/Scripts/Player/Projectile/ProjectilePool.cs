@@ -12,12 +12,16 @@ namespace ServiceLocator.Player.Projectile
 {
     public class ProjectilePool : GenericObjectPool<ProjectileController>
     {
+        private PlayerService playerService;
         private ProjectileView projectilePrefab;
         private List<ProjectileScriptableObject> projectileScriptableObjects;
         private Transform projectileContainer;
 
-        public ProjectilePool(ProjectileView projectilePrefab, List<ProjectileScriptableObject> projectileScriptableObjects)
+        public ProjectilePool(ProjectileView projectilePrefab, 
+        List<ProjectileScriptableObject> projectileScriptableObjects,
+        PlayerService playerService)
         {
+            this.playerService = playerService;
             this.projectilePrefab = projectilePrefab;
             this.projectileScriptableObjects = projectileScriptableObjects;
             projectileContainer = new GameObject("Projectile Container").transform;
@@ -31,6 +35,6 @@ namespace ServiceLocator.Player.Projectile
             return projectile;
         }
 
-        protected override ProjectileController CreateItem() => new ProjectileController(projectilePrefab, projectileContainer);
+        protected override ProjectileController CreateItem() => new ProjectileController(projectilePrefab, projectileContainer,playerService);
     }
 }

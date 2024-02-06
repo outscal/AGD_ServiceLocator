@@ -2,14 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using ServiceLocator.Player.Projectile;
 using ServiceLocator.Main;
+using ServiceLocator.UI;
+using ServiceLocator.Sound;
+using ServiceLocator.Map;
+using System.Globalization;
 
 namespace ServiceLocator.Player
 {
     public class PlayerService
     {
+        private UIService uIService;
+        private SoundService soundService;
+        private MapService mapService;
         private PlayerScriptableObject playerScriptableObject;
         private ProjectilePool projectilePool;
-
         private List<MonkeyController> activeMonkeys;
         private MonkeyView selectedMonkeyView;
         private int health;
@@ -19,7 +25,14 @@ namespace ServiceLocator.Player
         public PlayerService(PlayerScriptableObject playerScriptableObject)
         {
             this.playerScriptableObject = playerScriptableObject;
-            projectilePool = new ProjectilePool(playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);
+            projectilePool = new ProjectilePool(playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects,this);
+        }
+
+        public void Init(UIService uIService,SoundService soundService,MapService mapService)
+        {
+            this.uIService = uIService;
+            this.soundService = soundService;
+            this.mapService = mapService;
             InitializeVariables();
         }
 
@@ -28,8 +41,8 @@ namespace ServiceLocator.Player
             activeMonkeys = new List<MonkeyController>();
             health = playerScriptableObject.Health;
             Money = playerScriptableObject.Money;
-            GameService.Instance.UIService.UpdateHealthUI(health);
-            GameService.Instance.UIService.UpdateMoneyUI(Money);
+            uIService.UpdateHealthUI(health);
+            uIService.UpdateMoneyUI(Money);
         }
 
         public void Update()
@@ -81,7 +94,7 @@ namespace ServiceLocator.Player
             if (monkeyCost > Money)
                 return;
 
-            GameService.Instance.MapService.ValidateSpawnPosition(dropPosition);
+            mapService.ValidateSpawnPosition(dropPosition);
         }
 
         public void TrySpawningMonkey(MonkeyType monkeyType, int monkeyCost, Vector3 dropPosition)
@@ -89,17 +102,17 @@ namespace ServiceLocator.Player
             if (monkeyCost > Money)
                 return;
 
-            if (GameService.Instance.MapService.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
+            if (mapService.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.SpawnMonkey);
+                soundService.PlaySoundEffects(Sound.SoundType.SpawnMonkey);
             }
         }
 
         public void SpawnMonkey(MonkeyType monkeyType, Vector3 spawnPosition)
         {
             MonkeyScriptableObject monkeyScriptableObject = GetMonkeyScriptableObjectByType(monkeyType);
-            MonkeyController monkey = new MonkeyController(monkeyScriptableObject, projectilePool);
+            MonkeyController monkey = new MonkeyController(monkeyScriptableObject, projectilePool,soundService);
 
             monkey.SetPosition(spawnPosition);
             activeMonkeys.Add(monkey);
@@ -116,7 +129,7 @@ namespace ServiceLocator.Player
             int reducedHealth = health - damageToTake;
             health = reducedHealth <= 0 ? 0 : health - damageToTake;
 
-            GameService.Instance.UIService.UpdateHealthUI(health);
+            uIService.UpdateHealthUI(health);
             if(health <= 0)
                 PlayerDeath();
         }
@@ -124,15 +137,15 @@ namespace ServiceLocator.Player
         private void DeductMoney(int moneyToDedecut)
         {
             Money -= moneyToDedecut;
-            GameService.Instance.UIService.UpdateMoneyUI(Money);
+            uIService.UpdateMoneyUI(Money);
         }
 
         public void GetReward(int reward)
         {
             Money += reward;
-            GameService.Instance.UIService.UpdateMoneyUI(Money);
+            uIService.UpdateMoneyUI(Money);
         }
 
-        private void PlayerDeath() => GameService.Instance.UIService.UpdateGameEndUI(false);
+        private void PlayerDeath() => uIService.UpdateGameEndUI(false);
     }
 }

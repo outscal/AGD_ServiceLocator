@@ -14,7 +14,12 @@ namespace ServiceLocator.Sound
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
+        }
+
+        public void Init()
+        {
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
+
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
