@@ -56,6 +56,7 @@ namespace ServiceLocator.Main
         private void InjectDependecy()
         {
             PlayerService.Init(UIService, SoundService, MapService);
+            MapService.Init(EventService);
         }
     }
 }
