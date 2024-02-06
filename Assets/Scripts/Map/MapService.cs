@@ -20,13 +20,13 @@ namespace ServiceLocator.Map
         {
             this.mapScriptableObject = mapScriptableObject;
             tileOverlay = Object.Instantiate(mapScriptableObject.TileOverlay).GetComponent<SpriteRenderer>();
-            ResetTileOverlay();
         }
 
         public void Init(EventService eventService)
         {
             this.eventService = eventService;
             SubscribeToEvents();
+            ResetTileOverlay();
         }
 
         private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(LoadMap);
