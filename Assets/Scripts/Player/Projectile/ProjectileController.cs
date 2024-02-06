@@ -1,7 +1,5 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
-using ServiceLocator.Main;
-using Codice.ThemeImages;
 
 namespace ServiceLocator.Player.Projectile
 {
