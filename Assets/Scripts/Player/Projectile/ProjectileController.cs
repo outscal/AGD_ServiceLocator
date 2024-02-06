@@ -1,19 +1,24 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
 using ServiceLocator.Main;
+using Codice.ThemeImages;
 
 namespace ServiceLocator.Player.Projectile
 {
     public class ProjectileController
     {
+        private PlayerService playerService;
         private ProjectileView projectileView;
         private ProjectileScriptableObject projectileScriptableObject;
 
         private BloonController target;
         private ProjectileState currentState;
 
-        public ProjectileController(ProjectileView projectilePrefab, Transform projectileContainer)
+        public ProjectileController(ProjectileView projectilePrefab, 
+        Transform projectileContainer,
+        PlayerService playerService)
         {
+            this.playerService = playerService;
             projectileView = Object.Instantiate(projectilePrefab, projectileContainer);
             projectileView.SetController(this);
         }
@@ -62,7 +67,7 @@ namespace ServiceLocator.Player.Projectile
         {
             target = null;
             projectileView.gameObject.SetActive(false);
-            GameService.Instance.PlayerService.ReturnProjectileToPool(this);
+            playerService.ReturnProjectileToPool(this);
         }
 
         private void SetState(ProjectileState newState) => currentState = newState;
