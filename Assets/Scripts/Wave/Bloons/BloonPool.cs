@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ServiceLocator.Utilities;
-using ServiceLocator.Sound;
 using ServiceLocator.Player;
+using ServiceLocator.Sound;
 
 /*  This script demonstrates the implementation of Object Pool design pattern.
  *  If you're interested in learning about Object Pooling, you can find
@@ -14,22 +14,22 @@ namespace ServiceLocator.Wave.Bloon
 {
     public class BloonPool : GenericObjectPool<BloonController>
     {
-        private PlayerService playerService;
-        private WaveService waveService;
-        private SoundService soundService;
+        
+        
+     
 
         private BloonView bloonPrefab;
         private List<BloonScriptableObject> bloonScriptableObjects;
         private Transform bloonContainer;
 
-        public BloonPool(PlayerService playerService, WaveService waveService, SoundService soundService, WaveScriptableObject waveScriptableObject)
+        public BloonPool(   WaveScriptableObject waveScriptableObject)
         {
-            this.playerService = playerService;
-            this.waveService = waveService;
-            this.soundService = soundService;
-            this.bloonPrefab = waveScriptableObject.BloonPrefab;
-            this.bloonScriptableObjects = waveScriptableObject.BloonScriptableObjects;
-            this.bloonContainer = new GameObject("Bloon Container").transform;
+            
+           
+
+            bloonPrefab = waveScriptableObject.BloonPrefab;
+            bloonScriptableObjects = waveScriptableObject.BloonScriptableObjects;
+            bloonContainer = new GameObject("Bloon Container").transform;
         }
 
         public BloonController GetBloon(BloonType bloonType)
@@ -40,6 +40,6 @@ namespace ServiceLocator.Wave.Bloon
             return bloon;
         }
 
-        protected override BloonController CreateItem() => new BloonController(playerService, waveService, soundService, bloonPrefab, bloonContainer);
+        protected override BloonController CreateItem() => new BloonController( bloonPrefab, bloonContainer);
     }
 }

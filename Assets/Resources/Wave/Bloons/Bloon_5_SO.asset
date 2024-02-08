@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b32fea2b81d77ab45b7095799571b00f, type: 3}
-  m_Name: Bloon_2_SO
+  m_Name: Bloon_5_SO
   m_EditorClassIdentifier: 
-  Type: 1
-  Health: 1
-  Damage: 5
-  Reward: 10
-  Speed: 3
-  FullHealthSprite: {fileID: 21300000, guid: 915f49b044ce260499e22574848f3397, type: 3}
-  LowHealthSprite: {fileID: 0}
-  LayeredBloons: 0000000000000000000000000000000000000000
+  Type: 4
+  Health: 1000
+  HealthRegenerationValue: 50
+  HealthRegenerationAfter: 4
+  Damage: 60
+  Reward: 2000
+  Speed: 0.5
+  FullHealthSprite: {fileID: 21300000, guid: 1eea6667bbfc30d4382b57d10a3750c5, type: 3}
+  LowHealthSprite: {fileID: 21300000, guid: 56150d2e3c6457248bdbf858ecbcc70a, type: 3}
+  LayeredBloons: 
   LayerBloonSpawnRate: 0.2

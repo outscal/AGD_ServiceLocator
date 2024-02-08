@@ -17,7 +17,12 @@ namespace ServiceLocator.Wave.Bloon
 
         private void Update() => Controller.FollowWayPoints();
 
-        public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
+        public void SetRenderer(Sprite spriteToSet)
+        {
+            if (spriteToSet != null)
+                spriteRenderer.sprite = spriteToSet;
+        }
+
 
         public void SetSortingOrder(int sortingOrder) => spriteRenderer.sortingOrder = sortingOrder;
 
