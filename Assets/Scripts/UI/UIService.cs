@@ -12,6 +12,7 @@ namespace ServiceLocator.UI
     public class UIService : MonoBehaviour
     {
         // Dependencies:
+        private int mapBtnCount = 0;
         private WaveService waveService;
         private EventService eventService;
 
@@ -63,10 +64,11 @@ namespace ServiceLocator.UI
         private void InitializeMapSelectionUI(EventService eventService)
         {
             levelSelectionPanel.SetActive(true);
-            foreach (MapButton mapButton in mapButtons)
+            foreach(MapButton mapButton in mapButtons)
             {
-                mapButton.Init(eventService);
+                mapButton.DisableMapButton();
             }
+            mapButtons[mapBtnCount].Init(eventService);
         }
 
         private void InitializeMonkeySelectionUI(PlayerService playerService)
