@@ -91,7 +91,11 @@ namespace ServiceLocator.Wave
                 uiService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
 
                 if(IsLevelWon())
+                {
+                    bloonPool.RemoveBloonPool();
+                    InitializeBloons();
                     uiService.UpdateGameEndUI(true);
+                }
                 else
                     uiService.SetNextWaveButton(true);
             }
