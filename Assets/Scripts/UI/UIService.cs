@@ -118,6 +118,8 @@ namespace ServiceLocator.UI
             {
                 gameEndText.SetText("You Won");
                 levelUnlockText.SetActive(true);
+                mapBtnCount++;
+                mapButtons[mapBtnCount].Init(eventService);
             }
             else
             {
