@@ -13,6 +13,12 @@ namespace ServiceLocator.UI
         {
             this.eventService = eventService;
             GetComponent<Button>().onClick.AddListener(OnMapButtonClicked);
+            gameObject.GetComponent<Button>().interactable = true;
+        }
+        
+        public void DisableMapButton()
+        {
+            gameObject.GetComponent<Button>().interactable = false;
         }
 
         // To Learn more about Events and Observer Pattern, check out the course list here: https://outscal.com/courses
