@@ -37,6 +37,7 @@ namespace ServiceLocator.UI
 
         [Header("Game End Panel")]
         [SerializeField] private GameObject gameEndPanel;
+        [SerializeField] private GameObject levelUnlockText;
         [SerializeField] private TextMeshProUGUI gameEndText;
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
@@ -114,9 +115,15 @@ namespace ServiceLocator.UI
             gameEndPanel.SetActive(true);
 
             if (hasWon)
+            {
                 gameEndText.SetText("You Won");
+                levelUnlockText.SetActive(true);
+            }
             else
+            {
                 gameEndText.SetText("Game Over");
+                levelUnlockText.SetActive(false);
+            }
         }
 
     }
