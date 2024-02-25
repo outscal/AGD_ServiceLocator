@@ -10,14 +10,14 @@ namespace ServiceLocator.UI
     {
         private MonkeyCellController controller;
 
-        [SerializeField] private MonkeyImageHandler monkeyImageHandler;
+        [SerializeField] private LockedCellHandler lockedCellHandler;
         [SerializeField] private TextMeshProUGUI unlockCostText;
 
         public void SetController(MonkeyCellController controllerToSet) => controller = controllerToSet;
 
-        public void ConfigureCellUI(Sprite spriteToSet, string nameToSet, int costToSet)
+        public void ConfigureCellUI(Sprite spriteToSet)
         {
-            monkeyImageHandler.ConfigureImageHandler(spriteToSet, controller);
+            lockedCellHandler.ConfigureImageHandler(controller);
         }
     }
 }
