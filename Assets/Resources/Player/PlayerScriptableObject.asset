@@ -19,9 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9370d00ef28c7c4d996a0a4e78ede0f, type: 2}
   - {fileID: 11400000, guid: 4e36024359151174bb7ebcd801abd128, type: 2}
   - {fileID: 11400000, guid: 9f328982ae092b14fb75b8febaa390e8, type: 2}
+  - {fileID: 11400000, guid: 7ee940b97208fa3439b78335777204ce, type: 2}
   ProjectileScriptableObjects:
   - {fileID: 11400000, guid: e340dda60fff3ef448ee486910a3234a, type: 2}
   - {fileID: 11400000, guid: ffbcdc01c3e2c6643b339f98c899c9b0, type: 2}
   - {fileID: 11400000, guid: 729fb4288e059134aafab135e1b4f9e9, type: 2}
   - {fileID: 11400000, guid: e791f74b37009224490a179f6d9a6e65, type: 2}
+  - {fileID: 11400000, guid: 3e48374222188cc489f2e5099ca47be4, type: 2}
   ProjectilePrefab: {fileID: 1362808250499504333, guid: bc767598402e62249b2923847add33d9, type: 3}
