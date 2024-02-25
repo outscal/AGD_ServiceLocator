@@ -18,7 +18,7 @@ namespace ServiceLocator.UI
             this.monkeyCellSO = monkeyCellScriptableObject;
             monkeyCellView = Object.Instantiate(monkeyCellPrefab, cellContainer);
             monkeyCellView.SetController(this);
-            monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost);
+            monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost,monkeyCellSO.cellState,monkeyCellSO.UnlockCost);
         }
 
         public void MonkeyDraggedAt(Vector3 dragPosition)
