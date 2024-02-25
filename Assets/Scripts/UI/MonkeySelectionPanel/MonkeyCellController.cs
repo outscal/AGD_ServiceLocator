@@ -25,6 +25,7 @@ namespace ServiceLocator.UI
                 monkeyCellView.gameObject.SetActive(false);
                 lockedMonkeyCellView = Object.Instantiate(lockedMonkeyCellPrefab, cellContainer);
                 lockedMonkeyCellView.SetController(this);
+                lockedMonkeyCellView.ConfigureCellUI(monkeyCellSO.UnlockCost);
             }
         }
 
