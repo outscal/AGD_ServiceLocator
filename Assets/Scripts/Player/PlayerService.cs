@@ -113,6 +113,7 @@ namespace ServiceLocator.Player
             if(unlockCost > Money)
                 return false;
 
+            DeductMoney(unlockCost);
             return true;
         }
 
