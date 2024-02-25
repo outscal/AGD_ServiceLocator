@@ -108,6 +108,14 @@ namespace ServiceLocator.Player
             }
         }
 
+        public bool TryUnlockMonkey(int unlockCost)
+        {
+            if(unlockCost > Money)
+                return false;
+
+            return true;
+        }
+
         public void SpawnMonkey(MonkeyType monkeyType, Vector3 spawnPosition)
         {
             MonkeyScriptableObject monkeyScriptableObject = GetMonkeyScriptableObjectByType(monkeyType);
