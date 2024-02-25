@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using ServiceLocator.Player;
 using ServiceLocator.Sound;
+using System.Collections;
 
 namespace ServiceLocator.Wave.Bloon
 {
     public class BloonController
     {
+        private const float regenerateTimer = 3f;
+        private float timer = 0f;
         // Dependencies:
         private PlayerService playerService;
         private WaveService waveService;
@@ -63,8 +66,16 @@ namespace ServiceLocator.Wave.Bloon
 
         public void TakeDamage(int damageToTake)
         {
+            bloonView.HasTimerStart = false;
             int reducedHealth = currentHealth - damageToTake;
             currentHealth = reducedHealth <= 0 ? 0 : reducedHealth;
+
+            if(bloonView.GetRegenerateType() == RegenerateType.YES)
+            {
+                bloonView.HasTimerStart = true;
+                if(bloonView.HasTimerComplete)
+                    currentHealth = bloonScriptableObject.Health;
+            }
 
             if(currentHealth <= 0 && currentState == BloonState.ACTIVE)
             {
