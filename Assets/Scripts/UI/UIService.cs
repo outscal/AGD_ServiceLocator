@@ -33,6 +33,7 @@ namespace ServiceLocator.UI
         [SerializeField] private GameObject MonkeySelectionPanel;
         [SerializeField] private Transform cellContainer;
         [SerializeField] private MonkeyCellView monkeyCellPrefab;
+        [SerializeField] private LockedMonkeyCellView lockedMonkeyCellPrefab;
         [SerializeField] private List<MonkeyCellScriptableObject> monkeyCellScriptableObjects;
 
         [Header("Game End Panel")]
