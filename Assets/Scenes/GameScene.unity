@@ -632,6 +632,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: monkeyCellScriptableObjects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: monkeyCellScriptableObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 68c9538381dac8b4284a6631273473a2, type: 2}
     - target: {fileID: 7182248005041137931, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_Name
       value: Canvas - UI Service
