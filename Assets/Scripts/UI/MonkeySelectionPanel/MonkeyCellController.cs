@@ -13,15 +13,16 @@ namespace ServiceLocator.UI
         private LockedMonkeyCellView lockedMonkeyCellView;
         private MonkeyCellScriptableObject monkeyCellSO;
 
-        public MonkeyCellController(PlayerService playerService, Transform cellContainer, MonkeyCellView monkeyCellPrefab,LockedMonkeyCellView lockedMonkeyCellPrefab, MonkeyCellScriptableObject monkeyCellScriptableObject)
+        public MonkeyCellController(PlayerService playerService, Transform cellContainer, MonkeyCellView monkeyCellPrefab, LockedMonkeyCellView lockedMonkeyCellPrefab, MonkeyCellScriptableObject monkeyCellScriptableObject)
         {
             this.playerService = playerService;
             this.monkeyCellSO = monkeyCellScriptableObject;
             monkeyCellView = Object.Instantiate(monkeyCellPrefab, cellContainer);
             monkeyCellView.SetController(this);
             monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost);
-            if(monkeyCellSO.cellState == MonkeyCellState.LOCKED)
+            if (monkeyCellSO.cellState == MonkeyCellState.LOCKED)
             {
+                monkeyCellView.gameObject.SetActive(false);
                 lockedMonkeyCellView = Object.Instantiate(lockedMonkeyCellPrefab, cellContainer);
                 lockedMonkeyCellView.SetController(this);
             }
@@ -35,6 +36,15 @@ namespace ServiceLocator.UI
         public void MonkeyDroppedAt(Vector3 dropPosition)
         {
             playerService.TrySpawningMonkey(monkeyCellSO.Type, monkeyCellSO.Cost, dropPosition);
+        }
+
+        public void UnlockMonkey()
+        {
+            if (playerService.TryUnlockMonkey(monkeyCellSO.UnlockCost))
+            {
+                monkeyCellView.gameObject.SetActive(true);
+                lockedMonkeyCellView.gameObject.SetActive(false);
+            }
         }
     }
 }
