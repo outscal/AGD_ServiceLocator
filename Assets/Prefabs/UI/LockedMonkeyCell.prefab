@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7471a6e7cf24a44785749b7f1663292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monkeyImageHandler: {fileID: 0}
-  unlockCostText: {fileID: 3936797077293289828}
+  lockedCellHandler: {fileID: 4420750973490650838}
+  unlockCostText: {fileID: 1264779586017310574}
 --- !u!1 &6225770880483441100
 GameObject:
   m_ObjectHideFlags: 0
