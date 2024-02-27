@@ -66,11 +66,11 @@ namespace ServiceLocator.UI
         private void InitializeMapSelectionUI(EventService eventService)
         {
             levelSelectionPanel.SetActive(true);
-            foreach(MapButton mapButton in mapButtons)
+            foreach (MapButton mapButton in mapButtons)
             {
+                mapButton.Init(eventService);
                 mapButton.DisableMapButton();
             }
-            mapButtons[mapBtnCount].Init(eventService);
         }
 
         private void InitializeMonkeySelectionUI(PlayerService playerService)
@@ -93,7 +93,7 @@ namespace ServiceLocator.UI
 
         private void OnNextWaveButton()
         {
-            waveService.StarNextWave();
+            waveService.StartNextWave();
             SetNextWaveButton(false);
         }
 
