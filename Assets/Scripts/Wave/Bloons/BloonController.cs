@@ -3,13 +3,15 @@ using UnityEngine;
 using ServiceLocator.Player;
 using ServiceLocator.Sound;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace ServiceLocator.Wave.Bloon
 {
     public class BloonController
     {
-        private const float regenerateTimer = 3f;
+        private const float maxTime = 3f;
         private float timer = 0f;
+        private bool hasTimerReset = false;
         // Dependencies:
         private PlayerService playerService;
         private WaveService waveService;
@@ -66,15 +68,15 @@ namespace ServiceLocator.Wave.Bloon
 
         public void TakeDamage(int damageToTake)
         {
-            bloonView.HasTimerStart = false;
             int reducedHealth = currentHealth - damageToTake;
             currentHealth = reducedHealth <= 0 ? 0 : reducedHealth;
 
             if(bloonView.GetRegenerateType() == RegenerateType.YES)
             {
-                bloonView.HasTimerStart = true;
-                if(bloonView.HasTimerComplete)
-                    currentHealth = bloonScriptableObject.Health;
+                hasTimerReset = true;
+                timer = 0;
+                StartTimer();
+                hasTimerReset = false;
             }
 
             if(currentHealth <= 0 && currentState == BloonState.ACTIVE)
@@ -108,6 +110,20 @@ namespace ServiceLocator.Wave.Bloon
             waveService.RemoveBloon(this);
             playerService.TakeDamage(bloonScriptableObject.Damage);
             bloonView.gameObject.SetActive(false);
+        }
+
+        public async void StartTimer()
+        {
+            while(timer<maxTime)
+            {
+                timer++;
+                await Task.Yield();
+            }
+
+            if(hasTimerReset)
+            {
+                currentHealth = bloonScriptableObject.Health;
+            }
         }
 
         private Vector3 GetDirectionToMoveTowards() => waypoints[currentWaypointIndex] - bloonView.transform.position;
@@ -146,4 +162,6 @@ namespace ServiceLocator.Wave.Bloon
         ACTIVE,
         POPPED
     }
+
+    
 }
