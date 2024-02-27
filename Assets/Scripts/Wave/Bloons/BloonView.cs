@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ServiceLocator.Wave.Bloon
@@ -13,22 +13,6 @@ namespace ServiceLocator.Wave.Bloon
     {
         [SerializeField] private RegenerateType regenerateType;
         public BloonController Controller { get; set; }
-        private bool hasTimerStart = false;
-
-        public bool HasTimerStart
-        {
-            get { return hasTimerStart; }
-            set { hasTimerStart = value; }
-        }
-
-        private bool hasTimerComplete = false;
-        public bool HasTimerComplete
-        {
-            get { return hasTimerComplete; }
-        }
-
-        private float timer = 0f;
-        private const float maxTime = 3f;
         private SpriteRenderer spriteRenderer;
         private Animator animator;
 
@@ -41,17 +25,6 @@ namespace ServiceLocator.Wave.Bloon
         private void Update()
         {
             Controller.FollowWayPoints();
-
-            if(hasTimerStart)
-            {
-                timer += Time.deltaTime;
-                if(timer >= maxTime)
-                {
-                    hasTimerComplete = true;
-                    hasTimerStart = false;
-                }
-
-            }
         }
 
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
@@ -76,9 +49,6 @@ namespace ServiceLocator.Wave.Bloon
             return regenerateType;
         }
 
-        public IEnumerator RegenerateTimer()
-        {
-            yield return null;
-        }
+        
     }
 }
