@@ -49,6 +49,7 @@ namespace ServiceLocator.UI
         private int mapBtnCount = -1;
 
         [Header("Monkey Selection UI")] private MonkeySelectionUIController monkeySelectionController;
+        private PlayerService playerService;
 
         private WaveService waveService;
 
@@ -66,6 +67,7 @@ namespace ServiceLocator.UI
         {
             this.waveService = waveService;
             this.eventService = eventService;
+            this.playerService = playerService;
 
             InitializeMapSelectionUI(eventService);
             InitializeMonkeySelectionUI(playerService);
@@ -121,6 +123,7 @@ namespace ServiceLocator.UI
             gameEndPanel.SetActive(false);
             monkeySelectionPanel.SetActive(false);
             levelSelectionPanel.SetActive(true);
+            monkeySelectionController.ResetMonkeyCellViews();
         }
 
         public void SetNextWaveButton(bool setInteractable) => nextWaveButton.interactable = setInteractable;
