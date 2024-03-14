@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ServiceLocator.Events;
+using ServiceLocator.Map;
 using ServiceLocator.Player;
 using ServiceLocator.Wave;
 using TMPro;
@@ -43,15 +44,16 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
-        private EventService eventService;
 
         // Dependencies:
         private int mapBtnCount = -1;
 
         [Header("Monkey Selection UI")] private MonkeySelectionUIController monkeySelectionController;
+        
         private PlayerService playerService;
-
         private WaveService waveService;
+        private EventService eventService;
+        private MapService mapService;
 
         private void Start()
         {
@@ -63,12 +65,14 @@ namespace ServiceLocator.UI
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
         }
 
-        public void Init(WaveService waveService, PlayerService playerService, EventService eventService)
+        public void Init(WaveService waveService, PlayerService playerService, 
+                        EventService eventService,MapService mapService)
         {
             this.waveService = waveService;
             this.eventService = eventService;
             this.playerService = playerService;
-
+            this.mapService = mapService;
+            
             InitializeMapSelectionUI(eventService);
             InitializeMonkeySelectionUI(playerService);
             SubscribeToEvents();
@@ -122,8 +126,10 @@ namespace ServiceLocator.UI
             gameEndPanel.SetActive(false);
             monkeySelectionPanel.SetActive(false);
             levelSelectionPanel.SetActive(true);
-            monkeySelectionController.ResetMonkeyCellViews();
-            playerService.ClearActiveMonkeys();
+            SetNextWaveButton(true);
+            
+            playerService.ResetPlayerService();
+            eventService.OnPlayAgainEvent.InvokeEvent();
         }
 
         public void SetNextWaveButton(bool setInteractable) => nextWaveButton.interactable = setInteractable;
