@@ -81,7 +81,6 @@ namespace ServiceLocator.UI
             {
                 mapButton.Init(eventService);
             }
-
             EnableNewMap();
         }
 

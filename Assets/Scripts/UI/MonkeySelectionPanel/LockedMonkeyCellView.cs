@@ -20,7 +20,5 @@ namespace ServiceLocator.UI
             lockedCellHandler.ConfigureImageHandler(controller);
             unlockCostText.SetText(unlockCost.ToString());
         }
-
-        public void ResetLockedCell() => lockedCellHandler.ToggleOverlayImage(true);
     }
 }
