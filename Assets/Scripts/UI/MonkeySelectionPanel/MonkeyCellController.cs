@@ -17,16 +17,26 @@ namespace ServiceLocator.UI
         {
             this.playerService = playerService;
             this.monkeyCellSO = monkeyCellScriptableObject;
-            monkeyCellView = Object.Instantiate(monkeyCellPrefab, cellContainer);
-            monkeyCellView.SetController(this);
-            monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost);
+            
             if (monkeyCellSO.cellState == MonkeyCellState.LOCKED)
             {
-                monkeyCellView.gameObject.SetActive(false);
                 lockedMonkeyCellView = Object.Instantiate(lockedMonkeyCellPrefab, cellContainer);
                 lockedMonkeyCellView.SetController(this);
                 lockedMonkeyCellView.ConfigureCellUI(monkeyCellSO.UnlockCost);
             }
+            else
+            {
+                monkeyCellView = Object.Instantiate(monkeyCellPrefab, cellContainer);
+                monkeyCellView.SetController(this);
+                monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost);
+            }
+        }
+
+        public void ResetLockedCellView()
+        {
+            if (monkeyCellSO.cellState == MonkeyCellState.LOCKED)
+                lockedMonkeyCellView.ResetLockedCell();
+                
         }
 
         public void MonkeyDraggedAt(Vector3 dragPosition)

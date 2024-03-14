@@ -22,6 +22,14 @@ namespace ServiceLocator.UI
             }
         }
 
+        public void ResetMonkeyCellViews()
+        {
+            foreach (MonkeyCellController monkeyCellController in monkeyCellControllers)
+            {
+                monkeyCellController.ResetLockedCellView();
+            }
+        }
+
         public void SetActive(bool setActive) => cellContainer.gameObject.SetActive(setActive);
     }
 }

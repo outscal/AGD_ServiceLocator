@@ -24,5 +24,7 @@ namespace ServiceLocator.UI
         }
 
         public void OnPointerDown(PointerEventData eventData) => owner.UnlockMonkey();
+
+        public void ToggleOverlayImage(bool isActive) => overlayImage.enabled = isActive;
     }
 }
