@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ServiceLocator.Events;
 using UnityEngine;
 using ServiceLocator.Player.Projectile;
 using ServiceLocator.Map;
@@ -21,17 +22,22 @@ namespace ServiceLocator.Player
         private int health;
         public int Money { get; private set; }
 
+        private EventService eventService;
+        // private void SubscribeToEvents() => eventService.OnPlayAgainEvent.AddListener(ResetPlayerService);
+
         public PlayerService(PlayerScriptableObject playerScriptableObject)
         {
             this.playerScriptableObject = playerScriptableObject;
             projectilePool = new ProjectilePool(this, playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);
         }
 
-        public void Init(MapService mapService, UIService uiService, SoundService soundService)
+        public void Init(MapService mapService, UIService uiService, SoundService soundService,EventService eventService)
         {
             this.mapService = mapService;
             this.uiService = uiService;
             this.soundService = soundService;
+            this.eventService = eventService;
+            
             InitializeVariables();
         }
 
@@ -127,13 +133,14 @@ namespace ServiceLocator.Player
             DeductMoney(monkeyScriptableObject.Cost);
         }
 
-        public void ClearActiveMonkeys()
+        public void ResetPlayerService()
         {
             foreach (MonkeyController monkeyController in activeMonkeys)
             {
                 monkeyController.DestroyMonkeyView();
             }
             activeMonkeys.Clear();
+            Money = playerScriptableObject.Money;
         }
 
         private MonkeyScriptableObject GetMonkeyScriptableObjectByType(MonkeyType monkeyType) => playerScriptableObject.MonkeyScriptableObjects.Find(so => so.Type == monkeyType);
