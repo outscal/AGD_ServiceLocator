@@ -127,6 +127,15 @@ namespace ServiceLocator.Player
             DeductMoney(monkeyScriptableObject.Cost);
         }
 
+        public void ClearActiveMonkeys()
+        {
+            foreach (MonkeyController monkeyController in activeMonkeys)
+            {
+                monkeyController.DestroyMonkeyView();
+            }
+            activeMonkeys.Clear();
+        }
+
         private MonkeyScriptableObject GetMonkeyScriptableObjectByType(MonkeyType monkeyType) => playerScriptableObject.MonkeyScriptableObjects.Find(so => so.Type == monkeyType);
 
         public void ReturnProjectileToPool(ProjectileController projectileToReturn) => projectilePool.ReturnItem(projectileToReturn);

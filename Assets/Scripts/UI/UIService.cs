@@ -123,6 +123,7 @@ namespace ServiceLocator.UI
             monkeySelectionPanel.SetActive(false);
             levelSelectionPanel.SetActive(true);
             monkeySelectionController.ResetMonkeyCellViews();
+            playerService.ClearActiveMonkeys();
         }
 
         public void SetNextWaveButton(bool setInteractable) => nextWaveButton.interactable = setInteractable;
