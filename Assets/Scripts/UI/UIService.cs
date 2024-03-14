@@ -108,7 +108,8 @@ namespace ServiceLocator.UI
 
         private void OnPlayAgainButtonClicked()
         {
-            gameEndPanel.SetActive(false);    
+            gameEndPanel.SetActive(false);
+            monkeySelectionPanel.SetActive(false);
             levelSelectionPanel.SetActive(true);
         }
 
