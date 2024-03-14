@@ -1,28 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 using ServiceLocator.Events;
+using UnityEngine.Serialization;
 
 namespace ServiceLocator.UI
 {
     public class MapButton : MonoBehaviour
     {
-        [SerializeField] private int MapId;
+        [SerializeField] private int mapId;
         private EventService eventService;
+        private Button mapButton;
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void Awake()
+        {
+            mapButton = GetComponent<Button>();
+        }
 
         public void Init(EventService eventService)
         {
-            Debug.Log("new map");
             this.eventService = eventService;
-            GetComponent<Button>().onClick.AddListener(OnMapButtonClicked);
-            GetComponent<Button>().interactable = true;
-        }
-        
-        public void DisableMapButton()
-        {
-            GetComponent<Button>().interactable = false;
+            mapButton.onClick.AddListener(OnMapButtonClicked);
+            ToggleMapButton(false);
         }
 
+        public void ToggleMapButton(bool isActive) => mapButton.interactable = isActive;
+
         // To Learn more about Events and Observer Pattern, check out the course list here: https://outscal.com/courses
-        private void OnMapButtonClicked() =>  eventService.OnMapSelected.InvokeEvent(MapId);
+        private void OnMapButtonClicked() =>  eventService.OnMapSelected.InvokeEvent(mapId);
     }
 }

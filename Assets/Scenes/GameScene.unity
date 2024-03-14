@@ -600,6 +600,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7182248003563694489, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: mapId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7182248005041137931, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_Name
       value: Canvas - UI Service
@@ -687,6 +691,10 @@ PrefabInstance:
     - target: {fileID: 7182248005041137934, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449078884105841011, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: mapId
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15430d56842a28843b57fd250730f142, type: 3}

@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 using ServiceLocator.Wave;
 using ServiceLocator.Player;
 using ServiceLocator.Events;
+// ReSharper disable All
 
 namespace ServiceLocator.UI
 {
     public class UIService : MonoBehaviour
     {
         // Dependencies:
-        private int mapBtnCount = 0;
+        private int mapBtnCount = -1;
         private WaveService waveService;
         private EventService eventService;
 
@@ -69,8 +70,14 @@ namespace ServiceLocator.UI
             foreach (MapButton mapButton in mapButtons)
             {
                 mapButton.Init(eventService);
-                mapButton.DisableMapButton();
             }
+            EnableNewMap();
+        }
+
+        private void EnableNewMap()
+        {
+            mapBtnCount++;
+            mapButtons[mapBtnCount].ToggleMapButton(true);
         }
 
         private void InitializeMonkeySelectionUI(PlayerService playerService)
@@ -99,7 +106,11 @@ namespace ServiceLocator.UI
 
         private void OnQuitButtonClicked() => Application.Quit();
 
-        private void OnPlayAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        private void OnPlayAgainButtonClicked()
+        {
+            gameEndPanel.SetActive(false);    
+            levelSelectionPanel.SetActive(true);
+        }
 
         public void SetNextWaveButton(bool setInteractable) => nextWaveButton.interactable = setInteractable;
 
@@ -117,10 +128,9 @@ namespace ServiceLocator.UI
 
             if (hasWon)
             {
+                EnableNewMap();
                 gameEndText.SetText("You Won");
                 levelUnlockText.SetActive(true);
-                mapBtnCount++;
-                mapButtons[mapBtnCount].Init(eventService);
             }
             else
             {
