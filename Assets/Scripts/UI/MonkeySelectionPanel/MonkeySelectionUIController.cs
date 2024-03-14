@@ -2,6 +2,7 @@ using ServiceLocator.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ServiceLocator.Events;
 
 namespace ServiceLocator.UI
 {
@@ -9,6 +10,9 @@ namespace ServiceLocator.UI
     {
         private Transform cellContainer;
         private List<MonkeyCellController> monkeyCellControllers;
+        private EventService eventService;
+
+        private void SubscribeToEvents() => eventService.OnPlayAgainEvent.AddListener(ResetMonkeyCellViews);
 
         public MonkeySelectionUIController(PlayerService playerService, Transform cellContainer, MonkeyCellView monkeyCellPrefab,LockedMonkeyCellView lockedMonkeyCellPrefab, List<MonkeyCellScriptableObject> monkeyCellScriptableObjects)
         {
@@ -22,7 +26,7 @@ namespace ServiceLocator.UI
             }
         }
 
-        public void ResetMonkeyCellViews()
+        private void ResetMonkeyCellViews()
         {
             foreach (MonkeyCellController monkeyCellController in monkeyCellControllers)
             {

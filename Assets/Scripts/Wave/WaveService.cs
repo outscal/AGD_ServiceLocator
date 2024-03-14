@@ -45,7 +45,11 @@ namespace ServiceLocator.Wave
             activeBloons = new List<BloonController>();
         }
 
-        private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(LoadWaveDataForMap);
+        private void SubscribeToEvents()
+        {
+            eventService.OnMapSelected.AddListener(LoadWaveDataForMap);
+            eventService.OnPlayAgainEvent.AddListener(ResetWaveData);
+        }
 
         private void LoadWaveDataForMap(int mapId)
         {
@@ -53,6 +57,8 @@ namespace ServiceLocator.Wave
             waveDatas = waveScriptableObject.WaveConfigurations.Find(config => config.MapID == mapId).WaveDatas;
             uiService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
         }
+
+        private void ResetWaveData() => currentWaveId = 0;
 
         public void StartNextWave()
         {

@@ -34,10 +34,7 @@ namespace ServiceLocator.Player
             monkeyView.SetTriggerRadius(monkeyScriptableObject.Range);
         }
 
-        public void DestroyMonkeyView()
-        {
-            GameObject.Destroy(monkeyView.gameObject);
-        }
+        public void DestroyMonkeyView() => GameObject.Destroy(monkeyView.gameObject);
 
         private void InitializeVariables()
         {
