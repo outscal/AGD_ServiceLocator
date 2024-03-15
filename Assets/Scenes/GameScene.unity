@@ -834,7 +834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7182248005337839515, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_Maskable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7182248005337839515, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_FillCenter
@@ -842,7 +842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7182248005337839515, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7182248005351911911, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_AnchorMax.y
