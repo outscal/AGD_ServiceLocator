@@ -1,6 +1,7 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
 using ServiceLocator.Main;
+using ServiceLocator.Player.Projectile;
 
 namespace ServiceLocator.Player.Projectile
 {
@@ -23,7 +24,7 @@ namespace ServiceLocator.Player.Projectile
         public void Init(ProjectileScriptableObject projectileScriptableObject)
         {
             this.projectileScriptableObject = projectileScriptableObject;
-            projectileView.SetSprite(projectileScriptableObject.Sprite);
+            projectileView.InitProjectileView(projectileScriptableObject.Sprite,projectileScriptableObject.Type);
             projectileView.gameObject.SetActive(true);
             target = null;
         }
