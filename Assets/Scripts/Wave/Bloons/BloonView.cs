@@ -49,6 +49,8 @@ namespace ServiceLocator.Wave.Bloon
             return regenerateType;
         }
 
-        
+        public BloonType GetBloonType() => Controller.GetBloonType();
+
+
     }
 }
