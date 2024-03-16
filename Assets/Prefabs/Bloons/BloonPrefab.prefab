@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5809090260471785846}
   - component: {fileID: -978581256064570441}
   - component: {fileID: -2667900505452108077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BloonPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f049f0ac351c30149a183523fa0f0de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regenerateType: 0
 --- !u!58 &-978581256064570441
 CircleCollider2D:
   m_ObjectHideFlags: 0
