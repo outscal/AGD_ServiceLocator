@@ -26,33 +26,17 @@ namespace ServiceLocator.Player.Projectile
 
         private bool ProjectileOutOfBounds() => !spriteRenderer.isVisible;
 
-        public void InitProjectileView(Sprite spriteToSet, ProjectileType projectileType)
-        {
-            spriteRenderer.sprite = spriteToSet;
-            this.projectileType = projectileType;
-        }
+        public void InitProjectileView(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
         
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.GetComponent<BloonView>() != null)
             {
-                if (projectileType == ProjectileType.Canon)
-                {
-                    BlastImpact();
-                }
-                else if (projectileType == ProjectileType.EnergyBall)
-                {
-                    if (collision.GetComponent<BloonView>().GetBloonType() == BloonType.Metal)
-                    {
-                        return;
-                    }
-                }
                 controller.OnHitBloon(collision.GetComponent<BloonView>().Controller);
             }
         }
 
-        private void BlastImpact()
+        public void BlastImpact()
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, impactRadius,projectileLayer);
 
