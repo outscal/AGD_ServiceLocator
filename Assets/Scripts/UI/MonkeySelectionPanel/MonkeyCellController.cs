@@ -10,15 +10,34 @@ namespace ServiceLocator.UI
     {
         private PlayerService playerService;
         private MonkeyCellView monkeyCellView;
+        private LockedMonkeyCellView lockedMonkeyCellView;
         private MonkeyCellScriptableObject monkeyCellSO;
 
-        public MonkeyCellController(PlayerService playerService, Transform cellContainer, MonkeyCellView monkeyCellPrefab, MonkeyCellScriptableObject monkeyCellScriptableObject)
+        public MonkeyCellController(PlayerService playerService, Transform cellContainer, MonkeyCellView monkeyCellPrefab, LockedMonkeyCellView lockedMonkeyCellPrefab, MonkeyCellScriptableObject monkeyCellScriptableObject)
         {
             this.playerService = playerService;
             this.monkeyCellSO = monkeyCellScriptableObject;
+            
             monkeyCellView = Object.Instantiate(monkeyCellPrefab, cellContainer);
             monkeyCellView.SetController(this);
             monkeyCellView.ConfigureCellUI(monkeyCellSO.Sprite, monkeyCellSO.Name, monkeyCellSO.Cost);
+
+            if (monkeyCellSO.cellState == MonkeyCellState.LOCKED)
+            {
+                lockedMonkeyCellView = Object.Instantiate(lockedMonkeyCellPrefab, cellContainer);
+                lockedMonkeyCellView.SetController(this);
+                lockedMonkeyCellView.ConfigureCellUI(monkeyCellSO.UnlockCost);
+                ResetLockedCellView();
+            }
+        }
+
+        public void ResetLockedCellView()
+        {
+            if (monkeyCellSO.cellState == MonkeyCellState.LOCKED)
+            {
+                monkeyCellView.gameObject.SetActive(false);
+                lockedMonkeyCellView.gameObject.SetActive(true);
+            }
         }
 
         public void MonkeyDraggedAt(Vector3 dragPosition)
@@ -29,6 +48,15 @@ namespace ServiceLocator.UI
         public void MonkeyDroppedAt(Vector3 dropPosition)
         {
             playerService.TrySpawningMonkey(monkeyCellSO.Type, monkeyCellSO.Cost, dropPosition);
+        }
+
+        public void UnlockMonkey()
+        {
+            if (playerService.TryUnlockMonkey(monkeyCellSO.UnlockCost))
+            {
+                monkeyCellView.gameObject.SetActive(true);
+                lockedMonkeyCellView.gameObject.SetActive(false);
+            }
         }
     }
 }

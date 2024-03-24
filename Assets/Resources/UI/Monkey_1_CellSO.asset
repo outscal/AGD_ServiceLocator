@@ -16,3 +16,5 @@ MonoBehaviour:
   Name: Sharp Monkey
   Sprite: {fileID: 21300000, guid: 682dc48054517a84dafdc7efd4a16f60, type: 3}
   Cost: 50
+  cellState: 1
+  UnlockCost: 0

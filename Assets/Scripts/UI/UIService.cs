@@ -1,44 +1,59 @@
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using ServiceLocator.Wave;
-using ServiceLocator.Player;
 using ServiceLocator.Events;
+using ServiceLocator.Map;
+using ServiceLocator.Player;
+using ServiceLocator.Wave;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
+// ReSharper disable All
 
 namespace ServiceLocator.UI
 {
     public class UIService : MonoBehaviour
     {
-        // Dependencies:
-        private WaveService waveService;
-        private EventService eventService;
+        [Header("Gameplay Panel")] [SerializeField]
+        private GameObject gameplayPanel;
 
-        [Header("Gameplay Panel")]
-        [SerializeField] private GameObject gameplayPanel;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private TextMeshProUGUI moneyText;
         [SerializeField] private TextMeshProUGUI waveProgressText;
         [SerializeField] private TextMeshProUGUI currentMapText;
         [SerializeField] private Button nextWaveButton;
 
-        [Header("Level Selection Panel")]
-        [SerializeField] private GameObject levelSelectionPanel;
+        [Header("Level Selection Panel")] [SerializeField]
+        private GameObject levelSelectionPanel;
+
         [SerializeField] private List<MapButton> mapButtons;
 
-        [Header("Monkey Selection UI")]
-        private MonkeySelectionUIController monkeySelectionController;
-        [SerializeField] private GameObject MonkeySelectionPanel;
+        [FormerlySerializedAs("MonkeySelectionPanel")] [SerializeField]
+        private GameObject monkeySelectionPanel;
+
         [SerializeField] private Transform cellContainer;
         [SerializeField] private MonkeyCellView monkeyCellPrefab;
+        [SerializeField] private LockedMonkeyCellView lockedMonkeyCellPrefab;
         [SerializeField] private List<MonkeyCellScriptableObject> monkeyCellScriptableObjects;
 
-        [Header("Game End Panel")]
-        [SerializeField] private GameObject gameEndPanel;
+        [Header("Game End Panel")] [SerializeField]
+        private GameObject gameEndPanel;
+
+        [SerializeField] private GameObject levelUnlockText;
         [SerializeField] private TextMeshProUGUI gameEndText;
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
+
+
+        // Dependencies:
+        private int mapBtnCount = -1;
+
+        [Header("Monkey Selection UI")] private MonkeySelectionUIController monkeySelectionController;
+        
+        private PlayerService playerService;
+        private WaveService waveService;
+        private EventService eventService;
+        private MapService mapService;
 
         private void Start()
         {
@@ -50,11 +65,14 @@ namespace ServiceLocator.UI
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
         }
 
-        public void Init(WaveService waveService, PlayerService playerService, EventService eventService)
+        public void Init(WaveService waveService, PlayerService playerService, 
+                        EventService eventService,MapService mapService)
         {
             this.waveService = waveService;
             this.eventService = eventService;
-
+            this.playerService = playerService;
+            this.mapService = mapService;
+            
             InitializeMapSelectionUI(eventService);
             InitializeMonkeySelectionUI(playerService);
             SubscribeToEvents();
@@ -67,12 +85,20 @@ namespace ServiceLocator.UI
             {
                 mapButton.Init(eventService);
             }
+            EnableNewMap();
+        }
+
+        private void EnableNewMap()
+        {
+            mapBtnCount++;
+            mapButtons[mapBtnCount].ToggleMapButton(true);
         }
 
         private void InitializeMonkeySelectionUI(PlayerService playerService)
         {
-            monkeySelectionController = new MonkeySelectionUIController(playerService, cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
-            MonkeySelectionPanel.SetActive(false);
+            monkeySelectionController = new MonkeySelectionUIController(playerService, cellContainer, monkeyCellPrefab,
+                lockedMonkeyCellPrefab, monkeyCellScriptableObjects);
+            monkeySelectionPanel.SetActive(false);
             monkeySelectionController.SetActive(false);
         }
 
@@ -82,20 +108,29 @@ namespace ServiceLocator.UI
         {
             levelSelectionPanel.SetActive(false);
             gameplayPanel.SetActive(true);
-            MonkeySelectionPanel.SetActive(true);
+            monkeySelectionPanel.SetActive(true);
             monkeySelectionController.SetActive(true);
             currentMapText.SetText("Map: " + mapID);
         }
 
         private void OnNextWaveButton()
         {
-            waveService.StarNextWave();
+            waveService.StartNextWave();
             SetNextWaveButton(false);
         }
 
         private void OnQuitButtonClicked() => Application.Quit();
 
-        private void OnPlayAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        private void OnPlayAgainButtonClicked()
+        {
+            gameEndPanel.SetActive(false);
+            monkeySelectionPanel.SetActive(false);
+            levelSelectionPanel.SetActive(true);
+            SetNextWaveButton(true);
+            
+            playerService.ResetPlayerService();
+            eventService.OnPlayAgainEvent.InvokeEvent();
+        }
 
         public void SetNextWaveButton(bool setInteractable) => nextWaveButton.interactable = setInteractable;
 
@@ -103,7 +138,8 @@ namespace ServiceLocator.UI
 
         public void UpdateMoneyUI(int moneyToDisplay) => moneyText.SetText(moneyToDisplay.ToString());
 
-        public void UpdateWaveProgressUI(int waveCompleted, int totalWaves) => waveProgressText.SetText(waveCompleted.ToString() + "/" + totalWaves.ToString());
+        public void UpdateWaveProgressUI(int waveCompleted, int totalWaves) =>
+            waveProgressText.SetText(waveCompleted.ToString() + "/" + totalWaves.ToString());
 
         public void UpdateGameEndUI(bool hasWon)
         {
@@ -112,10 +148,16 @@ namespace ServiceLocator.UI
             gameEndPanel.SetActive(true);
 
             if (hasWon)
+            {
+                EnableNewMap();
                 gameEndText.SetText("You Won");
+                levelUnlockText.SetActive(true);
+            }
             else
+            {
                 gameEndText.SetText("Game Over");
+                levelUnlockText.SetActive(false);
+            }
         }
-
     }
 }

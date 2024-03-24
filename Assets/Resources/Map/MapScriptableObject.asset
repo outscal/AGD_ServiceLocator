@@ -28,6 +28,20 @@ MonoBehaviour:
     - {x: 3.5, y: -3.5, z: 0}
     - {x: -2.5, y: -3.5, z: 0}
     - {x: -2.5, y: -6, z: 0}
+  - MapID: 2
+    MapPrefab: {fileID: 7584734214643050015, guid: 0dfd949d21413bd40b73efd1edf954ed, type: 3}
+    SpawningPoint: {x: -10, y: -2.5, z: 0}
+    WayPoints:
+    - {x: -9.5, y: -2.5, z: 0}
+    - {x: -4.5, y: -2.5, z: 0}
+    - {x: -4.5, y: 3.5, z: 0}
+    - {x: 0.5, y: 3.5, z: 0}
+    - {x: 0.5, y: 0.5, z: 0}
+    - {x: -2.5, y: 0.5, z: 0}
+    - {x: -2.5, y: -2.5, z: 0}
+    - {x: 3.5, y: -2.5, z: 0}
+    - {x: 3.5, y: 2.5, z: 0}
+    - {x: 7.5, y: 2.5, z: 0}
   TileOverlay: {fileID: 8260900001988789194, guid: 772b5c5b2ee30704f8ecdd1db37a3708, type: 3}
   DefaultTileColor: {r: 1, g: 1, b: 1, a: 0}
   SpawnableTileColor: {r: 0, g: 0, b: 1, a: 0.39215687}

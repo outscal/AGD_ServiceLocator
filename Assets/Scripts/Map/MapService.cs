@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using ServiceLocator.Main;
 using ServiceLocator.Player;
 using ServiceLocator.Events;
 
@@ -31,7 +30,11 @@ namespace ServiceLocator.Map
             SubscribeToEvents();
         }
 
-        private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(LoadMap);
+        private void SubscribeToEvents()
+        {
+            eventService.OnMapSelected.AddListener(LoadMap);
+            eventService.OnPlayAgainEvent.AddListener(DisableCurrentMap);
+        }
 
         private void LoadMap(int mapId)
         {
@@ -39,6 +42,8 @@ namespace ServiceLocator.Map
             currentGrid = Object.Instantiate(currentMapData.MapPrefab);
             currentTileMap = currentGrid.GetComponentInChildren<Tilemap>();
         }
+
+        private void DisableCurrentMap() => currentGrid.gameObject.SetActive(false);
 
         public List<Vector3> GetWayPointsForCurrentMap() => currentMapData.WayPoints;
 

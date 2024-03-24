@@ -22,6 +22,5 @@ namespace ServiceLocator.UI
             nameText.SetText(nameToSet);
             costText.SetText(costToSet.ToString());
         }
-
     }
 }

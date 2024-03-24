@@ -10,5 +10,7 @@ namespace ServiceLocator.UI
         public string Name;
         public Sprite Sprite;
         public int Cost;
+        public MonkeyCellState cellState;
+        public int UnlockCost;
     }
 }

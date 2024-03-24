@@ -1,11 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ServiceLocator.Wave.Bloon
 {
+    public enum RegenerateType
+    {
+        YES,
+        NO
+    }
+
     public class BloonView : MonoBehaviour
     {
-        public BloonController Controller { get ; set ; }
-        
+        [SerializeField] private RegenerateType regenerateType;
+        public BloonController Controller { get; set; }
         private SpriteRenderer spriteRenderer;
         private Animator animator;
 
@@ -15,7 +22,10 @@ namespace ServiceLocator.Wave.Bloon
             animator = GetComponent<Animator>();
         }
 
-        private void Update() => Controller.FollowWayPoints();
+        private void Update()
+        {
+            Controller.FollowWayPoints();
+        }
 
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
 
@@ -33,5 +43,14 @@ namespace ServiceLocator.Wave.Bloon
             gameObject.SetActive(false);
             Controller.OnPopAnimationPlayed();
         }
+
+        public RegenerateType GetRegenerateType()
+        {
+            return regenerateType;
+        }
+
+        public BloonType GetBloonType() => Controller.GetBloonType();
+
+
     }
 }

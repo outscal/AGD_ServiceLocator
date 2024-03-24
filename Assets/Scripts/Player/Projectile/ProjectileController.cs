@@ -1,6 +1,7 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
 using ServiceLocator.Main;
+using ServiceLocator.Player.Projectile;
 
 namespace ServiceLocator.Player.Projectile
 {
@@ -23,7 +24,7 @@ namespace ServiceLocator.Player.Projectile
         public void Init(ProjectileScriptableObject projectileScriptableObject)
         {
             this.projectileScriptableObject = projectileScriptableObject;
-            projectileView.SetSprite(projectileScriptableObject.Sprite);
+            projectileView.InitProjectileView(projectileScriptableObject.Sprite);
             projectileView.gameObject.SetActive(true);
             target = null;
         }
@@ -52,9 +53,18 @@ namespace ServiceLocator.Player.Projectile
 
         public void OnHitBloon(BloonController bloonHit)
         {
+            BloonType bloonType = bloonHit.GetBloonType();
             if(currentState == ProjectileState.ACTIVE)
             {
-                bloonHit.TakeDamage(projectileScriptableObject.Damage);
+                if (projectileScriptableObject.Type != ProjectileType.EnergyBall || bloonType != BloonType.Metal)
+                {
+                    if (projectileScriptableObject.Type == ProjectileType.Canon)
+                    {
+                        projectileView.BlastImpact();
+                    }
+
+                    bloonHit.TakeDamage(projectileScriptableObject.Damage);
+                }
                 ResetProjectile();
                 SetState(ProjectileState.HIT_TARGET);
             }
